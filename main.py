@@ -1,5 +1,6 @@
 import os
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 from config.db import SessionLocal
 from models.availability import Availability
 from scheduler import check_and_reset_availabilities
@@ -46,6 +47,20 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:51825",
+    "http://localhost:54374",
+    "http://localhost:4200"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth_router,  prefix= prefix)
 app.include_router(user_router, prefix= prefix)
