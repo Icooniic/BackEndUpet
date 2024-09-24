@@ -52,7 +52,9 @@ origins = [
     "http://localhost:8080",
     "http://localhost:51825",
     "http://localhost:54374",
-    "http://localhost:4200"
+    "http://localhost:4200",
+    "https://upet-proyect.web.app",
+    "*"
 ]
 app.add_middleware(
     CORSMiddleware,
